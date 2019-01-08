@@ -5,10 +5,8 @@ import 'package:myapp/src/models/music.dart';
 import 'package:myapp/src/models/music_details.dart';
 import 'package:myapp/src/utils/api_client.dart';
 
-ApiClient apiClient = new ApiClient();
-
 Future<MusicModel> getMusic(List ids) async {
-  final response = await apiClient.get("/song/url?id=${ids.join(",")}");
+  final response = await ApiClient.get("/song/url?id=${ids.join(",")}");
   String responseBody = response.body;
   return compute(parseMusic, responseBody);
 }
@@ -31,7 +29,7 @@ Future<MusicModel> covertPrivilegesToMusicList(List ids) {
 
 
 Future<MusicDetailModel> getMusicDetailList(List ids) async {
-  final response = await apiClient.get("/song/detail?ids=${ids.join(",")}");
+  final response = await ApiClient.get("/song/detail?ids=${ids.join(",")}");
   String responseBody = response.body;
   return compute(parseMusicDetail, responseBody);
 }
