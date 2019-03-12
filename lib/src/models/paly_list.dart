@@ -53,9 +53,9 @@ class Playlists {
   int specialType;
   int totalDuration;
   Creator creator;
-  Null tracks;
+//  Null tracks;
   List<Subscribers> subscribers;
-  Null subscribed;
+//  Null subscribed;
   String commentThreadId;
   bool newImported;
   int adType;
@@ -87,9 +87,9 @@ class Playlists {
         this.specialType,
         this.totalDuration,
         this.creator,
-        this.tracks,
+//        this.tracks,
         this.subscribers,
-        this.subscribed,
+//        this.subscribed,
         this.commentThreadId,
         this.newImported,
         this.adType,
@@ -122,14 +122,14 @@ class Playlists {
     totalDuration = json['totalDuration'];
     creator =
     json['creator'] != null ? new Creator.fromJson(json['creator']) : null;
-    tracks = json['tracks'];
+//    tracks = json['tracks'];
     if (json['subscribers'] != null) {
       subscribers = new List<Subscribers>();
       json['subscribers'].forEach((v) {
         subscribers.add(new Subscribers.fromJson(v));
       });
     }
-    subscribed = json['subscribed'];
+//    subscribed = json['subscribed'];
     commentThreadId = json['commentThreadId'];
     newImported = json['newImported'];
     adType = json['adType'];
@@ -165,11 +165,11 @@ class Playlists {
     if (this.creator != null) {
       data['creator'] = this.creator.toJson();
     }
-    data['tracks'] = this.tracks;
+//    data['tracks'] = this.tracks;
     if (this.subscribers != null) {
       data['subscribers'] = this.subscribers.map((v) => v.toJson()).toList();
     }
-    data['subscribed'] = this.subscribed;
+//    data['subscribed'] = this.subscribed;
     data['commentThreadId'] = this.commentThreadId;
     data['newImported'] = this.newImported;
     data['adType'] = this.adType;
@@ -205,11 +205,11 @@ class Creator {
   String backgroundUrl;
   int authority;
   bool mutual;
-  Null expertTags;
-  Null experts;
+//  Null expertTags;
+//  Null experts;
   int djStatus;
   int vipType;
-  Null remarkName;
+//  Null remarkName;
   String avatarImgIdStr;
   String backgroundImgIdStr;
 
@@ -234,11 +234,11 @@ class Creator {
         this.backgroundUrl,
         this.authority,
         this.mutual,
-        this.expertTags,
-        this.experts,
+//        this.expertTags,
+//        this.experts,
         this.djStatus,
         this.vipType,
-        this.remarkName,
+//        this.remarkName,
         this.avatarImgIdStr,
         this.backgroundImgIdStr});
 
@@ -263,11 +263,11 @@ class Creator {
     backgroundUrl = json['backgroundUrl'];
     authority = json['authority'];
     mutual = json['mutual'];
-    expertTags = json['expertTags'];
-    experts = json['experts'];
+//    expertTags = json['expertTags'];
+//    experts = json['experts'];
     djStatus = json['djStatus'];
     vipType = json['vipType'];
-    remarkName = json['remarkName'];
+//    remarkName = json['remarkName'];
     avatarImgIdStr = json['avatarImgIdStr'];
     backgroundImgIdStr = json['backgroundImgIdStr'];
   }
@@ -294,11 +294,11 @@ class Creator {
     data['backgroundUrl'] = this.backgroundUrl;
     data['authority'] = this.authority;
     data['mutual'] = this.mutual;
-    data['expertTags'] = this.expertTags;
-    data['experts'] = this.experts;
+//    data['expertTags'] = this.expertTags;
+//    data['experts'] = this.experts;
     data['djStatus'] = this.djStatus;
     data['vipType'] = this.vipType;
-    data['remarkName'] = this.remarkName;
+//    data['remarkName'] = this.remarkName;
     data['avatarImgIdStr'] = this.avatarImgIdStr;
     data['backgroundImgIdStr'] = this.backgroundImgIdStr;
     return data;
@@ -326,11 +326,11 @@ class Subscribers {
   String backgroundUrl;
   int authority;
   bool mutual;
-  Null expertTags;
-  Null experts;
+//  Null expertTags;
+//  Null experts;
   int djStatus;
   int vipType;
-  Null remarkName;
+//  Null remarkName;
   String avatarImgIdStr;
   String backgroundImgIdStr;
 
@@ -355,11 +355,11 @@ class Subscribers {
         this.backgroundUrl,
         this.authority,
         this.mutual,
-        this.expertTags,
-        this.experts,
+//        this.expertTags,
+//        this.experts,
         this.djStatus,
         this.vipType,
-        this.remarkName,
+//        this.remarkName,
         this.avatarImgIdStr,
         this.backgroundImgIdStr});
 
@@ -384,11 +384,11 @@ class Subscribers {
     backgroundUrl = json['backgroundUrl'];
     authority = json['authority'];
     mutual = json['mutual'];
-    expertTags = json['expertTags'];
-    experts = json['experts'];
+//    expertTags = json['expertTags'];
+//    experts = json['experts'];
     djStatus = json['djStatus'];
     vipType = json['vipType'];
-    remarkName = json['remarkName'];
+//    remarkName = json['remarkName'];
     avatarImgIdStr = json['avatarImgIdStr'];
     backgroundImgIdStr = json['backgroundImgIdStr'];
     avatarImgIdStr = json['avatarImgId_str'];
@@ -416,11 +416,11 @@ class Subscribers {
     data['backgroundUrl'] = this.backgroundUrl;
     data['authority'] = this.authority;
     data['mutual'] = this.mutual;
-    data['expertTags'] = this.expertTags;
-    data['experts'] = this.experts;
+//    data['expertTags'] = this.expertTags;
+//    data['experts'] = this.experts;
     data['djStatus'] = this.djStatus;
     data['vipType'] = this.vipType;
-    data['remarkName'] = this.remarkName;
+//    data['remarkName'] = this.remarkName;
     data['avatarImgIdStr'] = this.avatarImgIdStr;
     data['backgroundImgIdStr'] = this.backgroundImgIdStr;
     data['avatarImgId_str'] = this.avatarImgIdStr;

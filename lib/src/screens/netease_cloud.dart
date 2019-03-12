@@ -8,6 +8,8 @@ import 'package:myapp/src/models/paly_list.dart';
 import 'package:myapp/src/models/personal_fm.dart';
 import 'package:myapp/src/models/single_play_list.dart';
 import 'package:myapp/src/screens/music_list.dart';
+import 'package:myapp/src/screens/my_music_list.dart';
+import 'package:myapp/src/screens/search.dart';
 import 'package:myapp/src/service/music.dart' as musicService;
 import 'package:myapp/src/service/personal_fm.dart';
 import 'package:myapp/src/service/playlist.dart' as playlistService;
@@ -34,7 +36,11 @@ class NeteaseCloudScreen extends StatelessWidget {
                 Icons.search,
                 color: Colors.white,
               ),
-              onPressed: null)
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SearchScreen(), fullscreenDialog: true));
+              })
         ],
       ),
       body: FutureBuilder<PlayListModel>(
@@ -72,7 +78,7 @@ class PhotosList extends StatelessWidget {
     PersonalFMModel personalFMModel  = await getPersonalFM();
     List<int> ids = personalFMModel.data.map((item) => item.privilege.id).toList();
     MusicDetailModel musicDetailModel = await musicService.covertPrivilegesToMusicDetailList(ids);
-    appBloc.playSong.add(PlaySong(playLists: musicDetailModel.songs, playingIndex: 0));
+    appBloc.playController.add(PlaySong(playLists: musicDetailModel.songs, playingIndex: 0));
   }
 
   @override
@@ -81,11 +87,25 @@ class PhotosList extends StatelessWidget {
     return ScreenWithPlayerBottomBar(
         child: Column(
       children: <Widget>[
-        MaterialButton(
-          onPressed: () {
-            onPersonalFMClicked();
-          },
-          child: Text("私人FM"),
+        Row(
+          children: <Widget>[
+            MaterialButton(
+              onPressed: () {
+                onPersonalFMClicked();
+              },
+              child: Text("私人FM"),
+            ),
+            MaterialButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => MyMusicListScreen()),
+                );
+              },
+              child: Text("我喜欢的"),
+            )
+          ],
         ),
         Flexible(
             child: GridView.builder(

@@ -67,26 +67,7 @@ class MusicListPage extends StatelessWidget {
   MusicListPage({Key key, this.songs});
 
   musicClicked(playlist, int clickedIndex) async {
-    appBloc.playSong.add(new PlaySong(playLists: playlist, playingIndex: clickedIndex));
-//    await playUtils.playSong(
-//        songId: song.id,
-//        completionHandler: playComplete,
-//        durationHandler: (Duration milliseconds) {
-//          if (!milliseconds.isNegative) {
-//
-//          }
-//        });
-  }
-
-  playComplete() {
-    PlayerUtils.playSong(
-        song: songs[indexSong],
-        completionHandler: playComplete,
-        durationHandler: (Duration milliseconds) {
-          if (!milliseconds.isNegative) {
-
-          }
-        });
+    appBloc.playController.add(new PlaySong(playLists: playlist, playingIndex: clickedIndex));
   }
 
   @override

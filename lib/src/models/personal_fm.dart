@@ -31,7 +31,7 @@ class Data {
   String name;
   int id;
   int position;
-  List<Null> alias;
+//  List<Null> alias;
   int status;
   int fee;
   int copyrightId;
@@ -48,21 +48,21 @@ class Data {
   int dayPlays;
   int hearTime;
   String ringtone;
-  Null crbt;
-  Null audition;
+//  Null crbt;
+//  Null audition;
   String copyFrom;
   String commentThreadId;
-  Null rtUrl;
+//  Null rtUrl;
   int ftype;
-  List<Null> rtUrls;
+//  List<Null> rtUrls;
   int copyright;
-  Null transName;
-  Null sign;
+//  Null transName;
+//  Null sign;
   int rtype;
-  Null rurl;
+//  Null rurl;
   int mvid;
   BMusic bMusic;
-  Null mp3Url;
+//  Null mp3Url;
   HMusic hMusic;
   MMusic mMusic;
   LMusic lMusic;
@@ -73,7 +73,7 @@ class Data {
       {this.name,
         this.id,
         this.position,
-        this.alias,
+//        this.alias,
         this.status,
         this.fee,
         this.copyrightId,
@@ -90,21 +90,21 @@ class Data {
         this.dayPlays,
         this.hearTime,
         this.ringtone,
-        this.crbt,
-        this.audition,
+//        this.crbt,
+//        this.audition,
         this.copyFrom,
         this.commentThreadId,
-        this.rtUrl,
+//        this.rtUrl,
         this.ftype,
-        this.rtUrls,
+//        this.rtUrls,
         this.copyright,
-        this.transName,
-        this.sign,
+//        this.transName,
+//        this.sign,
         this.rtype,
-        this.rurl,
+//        this.rurl,
         this.mvid,
         this.bMusic,
-        this.mp3Url,
+//        this.mp3Url,
         this.hMusic,
         this.mMusic,
         this.lMusic,
@@ -116,7 +116,7 @@ class Data {
     id = json['id'];
     position = json['position'];
     if (json['alias'] != null) {
-      alias = new List<Null>();
+//      alias = new List<Null>();
 //      json['alias'].forEach((v) {
 //        alias.add(new Null.fromJson(v));
 //      });
@@ -142,27 +142,27 @@ class Data {
     dayPlays = json['dayPlays'];
     hearTime = json['hearTime'];
     ringtone = json['ringtone'];
-    crbt = json['crbt'];
-    audition = json['audition'];
+//    crbt = json['crbt'];
+//    audition = json['audition'];
     copyFrom = json['copyFrom'];
     commentThreadId = json['commentThreadId'];
-    rtUrl = json['rtUrl'];
+//    rtUrl = json['rtUrl'];
     ftype = json['ftype'];
     if (json['rtUrls'] != null) {
-      rtUrls = new List<Null>();
+//      rtUrls = new List<Null>();
 //      json['rtUrls'].forEach((v) {
 //        rtUrls.add(new Null.fromJson(v));
 //      });
     }
     copyright = json['copyright'];
-    transName = json['transName'];
-    sign = json['sign'];
+//    transName = json['transName'];
+//    sign = json['sign'];
     rtype = json['rtype'];
-    rurl = json['rurl'];
+//    rurl = json['rurl'];
     mvid = json['mvid'];
     bMusic =
     json['bMusic'] != null ? new BMusic.fromJson(json['bMusic']) : null;
-    mp3Url = json['mp3Url'];
+//    mp3Url = json['mp3Url'];
     hMusic =
     json['hMusic'] != null ? new HMusic.fromJson(json['hMusic']) : null;
     mMusic =
@@ -203,25 +203,25 @@ class Data {
     data['dayPlays'] = this.dayPlays;
     data['hearTime'] = this.hearTime;
     data['ringtone'] = this.ringtone;
-    data['crbt'] = this.crbt;
-    data['audition'] = this.audition;
+//    data['crbt'] = this.crbt;
+//    data['audition'] = this.audition;
     data['copyFrom'] = this.copyFrom;
     data['commentThreadId'] = this.commentThreadId;
-    data['rtUrl'] = this.rtUrl;
+//    data['rtUrl'] = this.rtUrl;
     data['ftype'] = this.ftype;
 //    if (this.rtUrls != null) {
 //      data['rtUrls'] = this.rtUrls.map((v) => v.toJson()).toList();
 //    }
     data['copyright'] = this.copyright;
-    data['transName'] = this.transName;
-    data['sign'] = this.sign;
+//    data['transName'] = this.transName;
+//    data['sign'] = this.sign;
     data['rtype'] = this.rtype;
-    data['rurl'] = this.rurl;
+//    data['rurl'] = this.rurl;
     data['mvid'] = this.mvid;
     if (this.bMusic != null) {
       data['bMusic'] = this.bMusic.toJson();
     }
-    data['mp3Url'] = this.mp3Url;
+//    data['mp3Url'] = this.mp3Url;
     if (this.hMusic != null) {
       data['hMusic'] = this.hMusic.toJson();
     }
@@ -248,7 +248,7 @@ class Artists {
   String picUrl;
   String img1v1Url;
   int albumSize;
-  List<Null> alias;
+//  List<Null> alias;
   String trans;
   int musicSize;
 
@@ -261,7 +261,7 @@ class Artists {
         this.picUrl,
         this.img1v1Url,
         this.albumSize,
-        this.alias,
+//        this.alias,
         this.trans,
         this.musicSize});
 
@@ -319,14 +319,14 @@ class Album {
   String company;
   String briefDesc;
   Artist artist;
-  List<Null> songs;
-  List<Null> alias;
+//  List<Null> songs;
+//  List<Null> alias;
   int status;
   int copyrightId;
   String commentThreadId;
   List<Artists> artists;
   String subType;
-  Null transName;
+//  Null transName;
 
   Album(
       {this.name,
@@ -344,14 +344,15 @@ class Album {
         this.company,
         this.briefDesc,
         this.artist,
-        this.songs,
-        this.alias,
+//        this.songs,
+//        this.alias,
         this.status,
         this.copyrightId,
         this.commentThreadId,
         this.artists,
         this.subType,
-        this.transName});
+//        this.transName
+      });
 
   Album.fromJson(Map<String, dynamic> json) {
     name = json['name'];
@@ -371,13 +372,13 @@ class Album {
     artist =
     json['artist'] != null ? new Artist.fromJson(json['artist']) : null;
     if (json['songs'] != null) {
-      songs = new List<Null>();
+//      songs = new List<Null>();
 //      json['songs'].forEach((v) {
 //        songs.add(new Null.fromJson(v));
 //      });
     }
     if (json['alias'] != null) {
-      alias = new List<Null>();
+//      alias = new List<Null>();
 //      json['alias'].forEach((v) {
 //        alias.add(new Null.fromJson(v));
 //      });
@@ -392,7 +393,7 @@ class Album {
       });
     }
     subType = json['subType'];
-    transName = json['transName'];
+//    transName = json['transName'];
   }
 
   Map<String, dynamic> toJson() {
@@ -427,7 +428,7 @@ class Album {
       data['artists'] = this.artists.map((v) => v.toJson()).toList();
     }
     data['subType'] = this.subType;
-    data['transName'] = this.transName;
+//    data['transName'] = this.transName;
     return data;
   }
 }
@@ -441,7 +442,7 @@ class Artist {
   String picUrl;
   String img1v1Url;
   int albumSize;
-  List<Null> alias;
+//  List<Null> alias;
   String trans;
   int musicSize;
 
@@ -454,7 +455,7 @@ class Artist {
         this.picUrl,
         this.img1v1Url,
         this.albumSize,
-        this.alias,
+//        this.alias,
         this.trans,
         this.musicSize});
 
@@ -468,7 +469,7 @@ class Artist {
     img1v1Url = json['img1v1Url'];
     albumSize = json['albumSize'];
     if (json['alias'] != null) {
-      alias = new List<Null>();
+//      alias = new List<Null>();
 //      json['alias'].forEach((v) {
 //        alias.add(new Null.fromJson(v));
 //      });
@@ -527,7 +528,7 @@ class BMusic {
     dfsId = json['dfsId'];
     bitrate = json['bitrate'];
     playTime = json['playTime'];
-    volumeDelta = json['volumeDelta'];
+    volumeDelta = double.parse(json['volumeDelta'].toString());
   }
 
   Map<String, dynamic> toJson() {
@@ -576,7 +577,7 @@ class HMusic {
     dfsId = json['dfsId'];
     bitrate = json['bitrate'];
     playTime = json['playTime'];
-    volumeDelta = json['volumeDelta'];
+    volumeDelta = double.parse(json['volumeDelta'].toString());
   }
 
   Map<String, dynamic> toJson() {
@@ -625,7 +626,7 @@ class MMusic {
     dfsId = json['dfsId'];
     bitrate = json['bitrate'];
     playTime = json['playTime'];
-    volumeDelta = json['volumeDelta'];
+    volumeDelta = double.parse(json['volumeDelta'].toString());
   }
 
   Map<String, dynamic> toJson() {
@@ -674,7 +675,7 @@ class LMusic {
     dfsId = json['dfsId'];
     bitrate = json['bitrate'];
     playTime = json['playTime'];
-    volumeDelta = json['volumeDelta'];
+    volumeDelta = double.parse(json['volumeDelta'].toString());
   }
 
   Map<String, dynamic> toJson() {

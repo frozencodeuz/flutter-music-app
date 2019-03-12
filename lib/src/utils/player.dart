@@ -5,52 +5,74 @@ import 'package:myapp/src/models/music_details.dart';
 import 'package:myapp/src/service/music.dart' as musicService;
 
 class PlayerUtils {
-  static AudioPlayer _audioPlayer;
+  AudioPlayer _audioPlayer;
+  static PlayerUtils _playerUtils;
 
-  static Future<int> playSong(
-      {@required Songs song,
-      VoidCallback completionHandler,
-      TimeChangeHandler durationHandler,
-      TimeChangeHandler positionHandler}) async {
-    MusicModel musicModel = await musicService.get(song.id);
-    if (_audioPlayer == null) {
-      _audioPlayer = new AudioPlayer();
+  factory PlayerUtils({ onDurationChanged, onPlayerCompletion }) {
+    if (_playerUtils != null) {
+      return _playerUtils;
+    } else {
+      _playerUtils = new PlayerUtils._internal(
+          onDurationChanged: onDurationChanged,
+          onPlayerCompletion: onPlayerCompletion,
+      );
+      return _playerUtils;
     }
-    _audioPlayer.completionHandler = completionHandler;
-    _audioPlayer.durationHandler = durationHandler;
-    _audioPlayer.positionHandler = positionHandler;
+  }
+
+  PlayerUtils._internal({ onDurationChanged, onPlayerCompletion }) {
+    _audioPlayer = new AudioPlayer();
+    _audioPlayer.onPlayerCompletion.listen((event){
+      onPlayerCompletion(event);
+    });
+    _audioPlayer.onAudioPositionChanged.listen((event){
+//      print("onAudioPositionChanged========================");
+//      print(event);
+    });
+    _audioPlayer.onDurationChanged.listen((event){
+//      print("onDurationChanged========================");
+//      print(event);
+//      onDurationChanged && onDurationChanged(event);
+    });
+    _audioPlayer.onPlayerStateChanged.listen((event){
+//      onDurationChanged && onDurationChanged(event);
+    });
+  }
+
+  Future<int> playSong(
+      {@required Songs song}) async {
+    MusicModel musicModel = await musicService.get(song.id);
     return _audioPlayer.play(musicModel.data[0].url, isLocal: false);
 //    return playResult;
   }
 
-  static Future<int> playSongWithRemote(
-      {@required Songs song,
-      VoidCallback completionHandler,
-      TimeChangeHandler durationHandler,
-      TimeChangeHandler positionHandler}) async {
+  Future<int> playSongWithRemote(
+      {@required Songs song}) async {
     MusicModel musicModel = await musicService.get(song.id);
     if (_audioPlayer == null) {
       _audioPlayer = new AudioPlayer();
     }
-    _audioPlayer.completionHandler = completionHandler;
-    _audioPlayer.durationHandler = durationHandler;
-    _audioPlayer.positionHandler = positionHandler;
-    setNowPlayingInfo(song, 0, 0);
+    setNowPlayingInfo(song, 0, 0, 1);
     return _audioPlayer.play(musicModel.data[0].url, isLocal: false);
 //    return playResult;
   }
 
-  static setNowPlayingInfo(
-      Songs song, double playbackDuration, double elapsedPlaybackTime) {
-    _audioPlayer.setNowPlayingInfo(
-      song.al.picUrl,
-      song.name,
-      song.ar.map((ar) => ar.name).join('/'),
-      song.al.name,
-      playbackDuration,
-      elapsedPlaybackTime,
-    );
+  setNowPlayingInfo(
+      Songs song, double playbackDuration, double elapsedPlaybackTime, playbackRate) {
+//    _audioPlayer.setNowPlayingInfo(
+//      song.al.picUrl,
+//      song.name,
+//      song.ar.map((ar) => ar.name).join('/'),
+//      song.al.name,
+//      playbackDuration,
+//      elapsedPlaybackTime,
+//      playbackRate,
+//    );
   }
 
-  static get audioPlayer => _audioPlayer;
+  AudioPlayer get audioPlayer => _audioPlayer;
+
+  void dispose() {
+    _audioPlayer.release();
+  }
 }

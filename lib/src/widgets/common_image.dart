@@ -24,19 +24,22 @@ class CommonImage extends StatelessWidget {
 //      width: this.width,
 //      height: this.height,
 //    );
+    print(picUrl);
     return Center(
       child: ClipRRect(
         borderRadius: borderRadius,
         child: CachedNetworkImage(
-          placeholder: Container(
-            color: Colors.grey[200],
-            width: this.width,
-            height: this.height,
-          ),
+          placeholder: (BuildContext context, String url){
+            return Container(
+              color: Colors.grey[200],
+              width: this.width,
+              height: this.height,
+            );
+          },
           imageUrl: picUrl,
           width: this.width,
           height: this.height,
-          fit: BoxFit.cover,
+//          fit: BoxFit.cover,
         ),
       ),
     );

@@ -1,19 +1,68 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/src/bloc/app_bloc.dart';
 import 'package:myapp/src/bloc/app_provider.dart';
+import 'package:myapp/src/screens/my_music_list.dart';
 import 'package:myapp/src/screens/netease_cloud.dart';
 import 'package:flutter/rendering.dart';
-import 'package:myapp/src/screens/test.dart';
+import 'package:myapp/src/utils/player.dart';
+
+import 'package:myapp/src/service/user.dart' as userService ;
+
 void main() {
 //  debugPaintSizeEnabled=true;
-  runApp(MyApp());
+  final appBloc = AppBloc();
+  runApp(MyApp(appBloc));
 }
 
 class MyApp extends StatelessWidget {
+  final AppBloc appBloc;
+  MyApp(this.appBloc);
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+
+//    return AppProvider(
+//      child: Stack(
+//        children: <Widget>[
+//          MaterialApp(
+//            title: 'Flutter Demo',
+//            theme: ThemeData(
+//              // This is the theme of your application.
+//              //
+//              // Try running your application with "flutter run". You'll see the
+//              // application has a blue toolbar. Then, without quitting the app, try
+//              // changing the primarySwatch below to Colors.green and then invoke
+//              // "hot reload" (press "r" in the console where you ran "flutter run",
+//              // or simply save your changes to "hot reload" in a Flutter IDE).
+//              // Notice that the counter didn't reset back to zero; the application
+//              // is not restarted.
+//              primarySwatch: Colors.red,
+//            ),
+//            home: MyHomePage(title: 'Flutter Demo Home Page'),
+//            routes: <String, WidgetBuilder> {
+//              '/screen1': (BuildContext context) => MyMusicListScreen(),
+//              '/screen2' : (BuildContext context) => MyMusicListScreen(),
+//              '/screen3' : (BuildContext context) => MyMusicListScreen(),
+//              '/screen4' : (BuildContext context) => MyMusicListScreen()
+//            },
+//          ),
+//          Positioned(
+//              left: 0,
+//              right: 0,
+//              bottom: 0,
+//              child: Container(
+//                width: 100,
+//                height: 100,
+//                color: Colors.white,
+//                child: Text('TextTextTextTextTextText'),
+//              )
+//          ),
+//        ],
+//      )
+//    );
     return AppProvider(
+      appBloc: appBloc,
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
@@ -29,6 +78,12 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.red,
         ),
         home: MyHomePage(title: 'Flutter Demo Home Page'),
+        routes: <String, WidgetBuilder> {
+          '/screen1': (BuildContext context) => MyMusicListScreen(),
+          '/screen2' : (BuildContext context) => MyMusicListScreen(),
+          '/screen3' : (BuildContext context) => MyMusicListScreen(),
+          '/screen4' : (BuildContext context) => MyMusicListScreen()
+        },
       ),
     );
   }
@@ -56,6 +111,13 @@ class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   BuildContext context;
 
+
+  @override
+  void initState() {
+    super.initState();
+    userService.loginStatus();
+  }
+
   void _incrementCounter() {
     setState(() {
       // This call to setState tells the Flutter framework that something has
@@ -77,21 +139,23 @@ class _MyHomePageState extends State<MyHomePage> {
     // than having to individually change instances of widgets.
     this.context = context;
     return Scaffold(
-      body: NeteaseCloudScreen(), // ImageRotate(),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      body: MyMusicListScreen(),// NeteaseCloudScreen(), // ImageRotate(),
+//      floatingActionButton: FloatingActionButton(
+//        onPressed: _incrementCounter,
+//        tooltip: 'Increment',
+//        child: Icon(Icons.add),
+//      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 
   @override
   void dispose() {
     super.dispose();
-    // 保存当前播放的状态
     final appBloc = AppProvider.of(this.context);
+    // 保存当前播放的状态
 
+    appBloc.dispose();
+    PlayerUtils().dispose();
   }
 
 }

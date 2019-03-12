@@ -28,11 +28,11 @@ class MyPlayListModel {
 }
 
 class Playlist {
-  List<Null> subscribers;
+//  List<Null> subscribers;
   bool subscribed;
   Creator creator;
-  Null artists;
-  Null tracks;
+//  Null artists;
+//  Null tracks;
   bool ordered;
   int status;
   int createTime;
@@ -60,11 +60,12 @@ class Playlist {
   int id;
 
   Playlist(
-      {this.subscribers,
+      {
+//        this.subscribers,
         this.subscribed,
         this.creator,
-        this.artists,
-        this.tracks,
+//        this.artists,
+//        this.tracks,
         this.ordered,
         this.status,
         this.createTime,
@@ -93,7 +94,7 @@ class Playlist {
 
   Playlist.fromJson(Map<String, dynamic> json) {
     if (json['subscribers'] != null) {
-      subscribers = new List<Null>();
+//      subscribers = new List<Null>();
 //      json['subscribers'].forEach((v) {
 //        subscribers.add(new Null.fromJson(v));
 //      });
@@ -101,8 +102,8 @@ class Playlist {
     subscribed = json['subscribed'];
     creator =
     json['creator'] != null ? new Creator.fromJson(json['creator']) : null;
-    artists = json['artists'];
-    tracks = json['tracks'];
+//    artists = json['artists'];
+//    tracks = json['tracks'];
     ordered = json['ordered'];
     status = json['status'];
     createTime = json['createTime'];
@@ -139,8 +140,8 @@ class Playlist {
     if (this.creator != null) {
       data['creator'] = this.creator.toJson();
     }
-    data['artists'] = this.artists;
-    data['tracks'] = this.tracks;
+//    data['artists'] = this.artists;
+//    data['tracks'] = this.tracks;
     data['ordered'] = this.ordered;
     data['status'] = this.status;
     data['createTime'] = this.createTime;
@@ -191,11 +192,11 @@ class Creator {
   String backgroundUrl;
   int authority;
   bool mutual;
-  Null expertTags;
-  Null experts;
+//  Null expertTags;
+//  Null experts;
   int djStatus;
   int vipType;
-  Null remarkName;
+//  Null remarkName;
   String backgroundImgIdStr;
   String avatarImgIdStr;
 
@@ -220,11 +221,11 @@ class Creator {
         this.backgroundUrl,
         this.authority,
         this.mutual,
-        this.expertTags,
-        this.experts,
+//        this.expertTags,
+//        this.experts,
         this.djStatus,
         this.vipType,
-        this.remarkName,
+//        this.remarkName,
         this.backgroundImgIdStr,
         this.avatarImgIdStr});
 
@@ -249,11 +250,11 @@ class Creator {
     backgroundUrl = json['backgroundUrl'];
     authority = json['authority'];
     mutual = json['mutual'];
-    expertTags = json['expertTags'];
-    experts = json['experts'];
+//    expertTags = json['expertTags'];
+//    experts = json['experts'];
     djStatus = json['djStatus'];
     vipType = json['vipType'];
-    remarkName = json['remarkName'];
+//    remarkName = json['remarkName'];
     backgroundImgIdStr = json['backgroundImgIdStr'];
     avatarImgIdStr = json['avatarImgIdStr'];
     avatarImgIdStr = json['avatarImgId_str'];
@@ -281,11 +282,11 @@ class Creator {
     data['backgroundUrl'] = this.backgroundUrl;
     data['authority'] = this.authority;
     data['mutual'] = this.mutual;
-    data['expertTags'] = this.expertTags;
-    data['experts'] = this.experts;
+//    data['expertTags'] = this.expertTags;
+//    data['experts'] = this.experts;
     data['djStatus'] = this.djStatus;
     data['vipType'] = this.vipType;
-    data['remarkName'] = this.remarkName;
+//    data['remarkName'] = this.remarkName;
     data['backgroundImgIdStr'] = this.backgroundImgIdStr;
     data['avatarImgIdStr'] = this.avatarImgIdStr;
     data['avatarImgId_str'] = this.avatarImgIdStr;

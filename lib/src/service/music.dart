@@ -6,14 +6,8 @@ import 'package:myapp/src/models/music_details.dart';
 import 'package:myapp/src/utils/api_client.dart';
 
 Future<MusicModel> getMusic(List ids) async {
-  final response = await ApiClient.get("/song/url?id=${ids.join(",")}");
-  String responseBody = response.body;
-  return compute(parseMusic, responseBody);
-}
-
-MusicModel parseMusic(String responseBody) {
-  final parsed = json.decode(responseBody);
-  return MusicModel.fromJson(parsed);
+  final response = await ApiClient().get("/song/url?id=${ids.join(",")}");
+  return MusicModel.fromJson(response.data);
 }
 
 Future<MusicModel> get(int id) async {
@@ -25,19 +19,7 @@ Future<MusicModel> covertPrivilegesToMusicList(List ids) {
 }
 
 
-
-
-
-Future<MusicDetailModel> getMusicDetailList(List ids) async {
-  final response = await ApiClient.get("/song/detail?ids=${ids.join(",")}");
-  String responseBody = response.body;
-  return compute(parseMusicDetail, responseBody);
-}
-
-MusicDetailModel parseMusicDetail(String responseBody) {
-  final parsed = json.decode(responseBody);
-  return MusicDetailModel.fromJson(parsed);
-}
-Future<MusicDetailModel> covertPrivilegesToMusicDetailList(List ids) {
-  return getMusicDetailList(ids);
+Future<MusicDetailModel> covertPrivilegesToMusicDetailList(List ids) async {
+  final response = await ApiClient().get("/song/detail?ids=${ids.join(",")}");
+  return MusicDetailModel.fromJson(response.data);
 }
