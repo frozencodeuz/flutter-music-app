@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:myapp/src/bloc/app_bloc.dart';
 import 'package:myapp/src/bloc/app_provider.dart';
 import 'package:myapp/src/models/music_details.dart';
-import 'package:myapp/src/models/player.dart';
-import 'package:myapp/src/screens/player.dart';
+import 'package:myapp/src/screens/player/player.dart';
 import 'package:myapp/src/widgets/auto_rotate.dart';
 import 'package:myapp/src/widgets/common_image.dart';
 import 'package:myapp/src/resources/colors.dart' as AppColors;
@@ -118,9 +117,10 @@ class SmallDisc extends StatelessWidget {
           },
           child: Center(
             child: (snapshot.data == AudioPlayerState.PLAYING
-                ? AutoRotate(
-              child: DiscImage(),
-            )
+                ? DiscImage()
+//            AutoRotate(
+//              child: DiscImage(),
+//            )
                 : DiscImage()),
           ),
         );
@@ -139,7 +139,7 @@ class DiscImage extends StatelessWidget {
       initialData: PlaySong(playLists: appBloc.playing.playLists, playingIndex: appBloc.playing.playingIndex),
       builder: (context, snapshot){
         Songs playSong;
-        if (snapshot.data != null) {
+        if (snapshot.data?.playLists != null && snapshot.data.playLists.length > 0) {
           playSong = snapshot.data.playLists[snapshot.data.playingIndex];
         }
         return playSong?.al?.picUrl != null

@@ -1,17 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:myapp/src/bloc/app_bloc.dart';
 import 'package:myapp/src/bloc/app_provider.dart';
 import 'package:myapp/src/screens/my_music_list.dart';
 import 'package:myapp/src/screens/netease_cloud.dart';
 import 'package:flutter/rendering.dart';
+import 'package:logs/logs.dart';
 import 'package:myapp/src/utils/player.dart';
+import 'package:flutter_flipperkit/flutter_flipperkit.dart';
 
 import 'package:myapp/src/service/user.dart' as userService ;
 
+final Log httpLog = new Log('http');
 void main() {
+  httpLog.enabled = true;
 //  debugPaintSizeEnabled=true;
+  FlipperClient flipperClient = FlipperClient.getDefault();
+
+  flipperClient.addPlugin(new FlipperNetworkPlugin());
+  flipperClient.addPlugin(new FlipperReduxInspectorPlugin());
+  flipperClient.addPlugin(new FlipperSharedPreferencesPlugin());
+  flipperClient.start();
   final appBloc = AppBloc();
   runApp(MyApp(appBloc));
+
+//  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+//  var androidPlatformChannelSpecifics = new AndroidNotificationDetails('repeating channel id',
+//      'repeating channel name', 'repeating description', ongoing: true);
+//  var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
+//  var platformChannelSpecifics = new NotificationDetails(
+//      androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
+//  flutterLocalNotificationsPlugin.show(
+//      3, 'Attention', 'Two new messages', platformChannelSpecifics);
 }
 
 class MyApp extends StatelessWidget {
@@ -22,45 +42,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-//    return AppProvider(
-//      child: Stack(
-//        children: <Widget>[
-//          MaterialApp(
-//            title: 'Flutter Demo',
-//            theme: ThemeData(
-//              // This is the theme of your application.
-//              //
-//              // Try running your application with "flutter run". You'll see the
-//              // application has a blue toolbar. Then, without quitting the app, try
-//              // changing the primarySwatch below to Colors.green and then invoke
-//              // "hot reload" (press "r" in the console where you ran "flutter run",
-//              // or simply save your changes to "hot reload" in a Flutter IDE).
-//              // Notice that the counter didn't reset back to zero; the application
-//              // is not restarted.
-//              primarySwatch: Colors.red,
-//            ),
-//            home: MyHomePage(title: 'Flutter Demo Home Page'),
-//            routes: <String, WidgetBuilder> {
-//              '/screen1': (BuildContext context) => MyMusicListScreen(),
-//              '/screen2' : (BuildContext context) => MyMusicListScreen(),
-//              '/screen3' : (BuildContext context) => MyMusicListScreen(),
-//              '/screen4' : (BuildContext context) => MyMusicListScreen()
-//            },
-//          ),
-//          Positioned(
-//              left: 0,
-//              right: 0,
-//              bottom: 0,
-//              child: Container(
-//                width: 100,
-//                height: 100,
-//                color: Colors.white,
-//                child: Text('TextTextTextTextTextText'),
-//              )
-//          ),
-//        ],
-//      )
-//    );
     return AppProvider(
       appBloc: appBloc,
       child: MaterialApp(

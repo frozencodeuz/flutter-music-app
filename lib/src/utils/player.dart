@@ -37,11 +37,16 @@ class PlayerUtils {
     _audioPlayer.onPlayerStateChanged.listen((event){
 //      onDurationChanged && onDurationChanged(event);
     });
+    _audioPlayer.onPlayerError.listen((onData){
+      print("onPlayerError========================");
+      print(onData);
+    });
   }
 
   Future<int> playSong(
       {@required Songs song}) async {
     MusicModel musicModel = await musicService.get(song.id);
+    _audioPlayer.setVolume(1.0);
     return _audioPlayer.play(musicModel.data[0].url, isLocal: false);
 //    return playResult;
   }

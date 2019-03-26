@@ -4,6 +4,8 @@ import 'package:myapp/src/bloc/app_provider.dart';
 import 'package:myapp/src/models/music_details.dart';
 import 'package:myapp/src/models/my_playlist.dart';
 import 'package:myapp/src/models/personal_fm.dart';
+import 'package:myapp/src/models/user.dart';
+import 'package:myapp/src/screens/login/index.dart';
 import 'package:myapp/src/screens/music_list.dart';
 import 'package:myapp/src/screens/search.dart';
 import 'package:myapp/src/service/personal_fm.dart';
@@ -29,9 +31,8 @@ class MyMusicListScreen extends StatelessWidget {
       : super(key: key);
 
   Future<List<Playlist>> getMusicList() async {
-    MyPlayListModel myPlayListModel =
-        await userPlaylistService.getUserPlaylist(id: "113217521");
-
+    MyPlayListModel myPlayListModel = await userPlaylistService.getUserPlaylist(
+        id: appBloc.userModel.account.id);
     return myPlayListModel.playlist;
   }
 
@@ -40,15 +41,6 @@ class MyMusicListScreen extends StatelessWidget {
     appBloc = AppProvider.of(context);
     return Scaffold(
       drawer: Drawer(
-//        child: Container(
-//          padding: EdgeInsets.all(0),
-//          height: 200,
-//          color: Theme.of(context).primaryColor,
-//          child: Text(
-//            '__lxp__',
-//            style: Theme.of(context).textTheme.title,
-//          ),
-//        )
         child: Container(
           padding: EdgeInsets.all(0),
 //          color: Theme.of(context).primaryColor,
@@ -61,27 +53,45 @@ class MyMusicListScreen extends StatelessWidget {
             itemBuilder: (context, index) {
               final item = menuItems[index];
               if (item is HeadingItem) {
-                return Container(
+                return MaterialButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => LoginScreen(),
+                        ));
+                  },
                   padding: EdgeInsets.all(0),
-                  height: 200,
-                  color: Theme.of(context).primaryColor,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      CommonImage(
-                        width: 80,
-                        height: 80,
-                        borderRadius: BorderRadius.all(Radius.circular(40.0)),
-                        picUrl: '',
-                      ),
-                      Text(
-                        '__lxp__',
-                        style: Theme.of(context)
-                            .textTheme
-                            .title
-                            .merge(TextStyle(color: Colors.white)),
-                      ),
-                    ],
+                  child: Container(
+                    padding: EdgeInsets.all(0),
+                    height: 200,
+                    color: Theme.of(context).primaryColor,
+                    child: appBloc?.userModel?.code != null
+                        ? Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              CommonImage(
+                                width: 80,
+                                height: 80,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(40.0)),
+                                picUrl: appBloc.userModel.profile.avatarUrl,
+                              ),
+                              Text(
+                                appBloc.userModel.profile.nickname,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .title
+                                    .merge(TextStyle(color: Colors.white)),
+                              ),
+                            ],
+                          )
+                        : Center(
+                            child: Text(
+                              '登录',
+                              style: Theme.of(context).textTheme.title,
+                            ),
+                          ),
                   ),
                 );
               } else if (item is CategoryItem) {
@@ -125,15 +135,21 @@ class MyMusicListScreen extends StatelessWidget {
               })
         ],
       ),
-      body: FutureBuilder<List<Playlist>>(
-        future: getMusicList(),
+      body: StreamBuilder<UserModel>(
+          stream: appBloc.loginController.stream,
+        initialData: appBloc.userModel,
         builder: (context, snapshot) {
-          if (snapshot.hasError) print(snapshot.error);
-
-          return snapshot.hasData
-              ? PlayListPage(playlists: snapshot.data)
-              : Center(child: CircularProgressIndicator());
-        },
+          return (snapshot.data != null && snapshot.data.code == 200) ?
+            FutureBuilder<List<Playlist>>(
+              future: getMusicList(),
+              builder: (context, snapshot) {
+                if (snapshot.hasError) print(snapshot.error);
+                return snapshot.hasData
+                    ? PlayListPage(playlists: snapshot.data)
+                    : Center(child: CircularProgressIndicator());
+              },
+            ) : Center(child: Text('先登录一下'));
+          },
       ),
     );
   }

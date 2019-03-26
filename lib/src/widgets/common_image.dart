@@ -24,7 +24,6 @@ class CommonImage extends StatelessWidget {
 //      width: this.width,
 //      height: this.height,
 //    );
-    print(picUrl);
     return Center(
       child: ClipRRect(
         borderRadius: borderRadius,

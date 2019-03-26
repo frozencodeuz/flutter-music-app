@@ -1,11 +1,15 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:myapp/src/models/music_details.dart';
 import 'package:myapp/src/models/player.dart';
+import 'package:myapp/src/models/user.dart';
 import 'package:myapp/src/utils/player.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:audioplayers/audioplayers.dart';
+
+import 'package:myapp/src/service/user.dart' as userService ;
 
 class PlaySong {
   final List<Songs> playLists;
@@ -34,6 +38,7 @@ class ChangePlayOrder{
 
 class AppBloc {
   final PlayerSingleton _playing = PlayerSingleton();
+  UserModel userModel;
   PlayerSingleton get playing => _playing;
 
   final StreamController<PlaySong> playController =
@@ -49,18 +54,33 @@ class AppBloc {
   final StreamController<PlayerStatus> playingStatusController =
   StreamController.broadcast();
 
+  final StreamController<UserModel> loginController =
+  StreamController.broadcast();
+
 
   AppBloc() {
     // 初始化时恢复播放状态
     SharedPreferences.getInstance().then((sharedPreferences) {
       String playingJson = sharedPreferences.getString('playing');
-      print("初始化时恢复播放状态");
-      print(playingJson);
+
+      // 刷新用户登录
+      userService.loginStatus().then((onValue){
+        if (onValue.code == 200) {
+          String loginJson = sharedPreferences.getString('login');
+          loginController.add(UserModel.fromJson(json.decode(loginJson)));
+        }
+      }).catchError((onError){
+        sharedPreferences.setString('login', '');
+      });
     });
 
     PlayerUtils(onDurationChanged: (milliseconds){
       print('准备就绪:${milliseconds.toString()}');
     }, onPlayerCompletion: (event) => playNextSong());
+
+    loginController.stream.listen((userModel) {
+      this.userModel = userModel;
+    });
 
     playController.stream.listen((playSong) {
       _playing.playerStatus = AudioPlayerState.PLAYING;
@@ -140,6 +160,7 @@ class AppBloc {
     nextSongController.close();
     pauseSongController.close();
     resumeSongController.close();
+    loginController.close();
 
 //    _playingSong.close();
 //    _playingStatus.close();

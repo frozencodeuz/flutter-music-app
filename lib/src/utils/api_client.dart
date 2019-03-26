@@ -28,18 +28,18 @@ class ApiClient {
       ..options.baseUrl = urlPrefix
       ..options.connectTimeout = 15000
       ..options.receiveTimeout = 1000; // with default Options
-    List<Cookie> cookies = [
-      new Cookie("MUSIC_U",
-          "8d8933803473d4df90b36c81e2018f910097d4f175c7b65a267f3059813e3ffa87796cdce1bac5db5beba0fdce2b6dd97b6b220de7f6b737"),
-      new Cookie("__remember_me", "true"),
-      new Cookie("__csrf", "70ca27ada30558b5c37d55f295cc82f1")
-    ];
+//    List<Cookie> cookies = [
+//      new Cookie("MUSIC_U",
+//          "8d8933803473d4df90b36c81e2018f910097d4f175c7b65a267f3059813e3ffa87796cdce1bac5db5beba0fdce2b6dd97b6b220de7f6b737"),
+//      new Cookie("__remember_me", "true"),
+//      new Cookie("__csrf", "70ca27ada30558b5c37d55f295cc82f1")
+//    ];
 
     getTemporaryDirectory().then((tempDir) {
       String tempPath = tempDir.path;
       var cookieJar = new PersistCookieJar(dir: tempPath);
       //Save cookies
-      cookieJar.saveFromResponse(Uri.parse(urlPrefix), cookies);
+//      cookieJar.saveFromResponse(Uri.parse(urlPrefix), cookies);
       _dio.interceptors.add(CookieManager(CookieJar()));
     });
   }
