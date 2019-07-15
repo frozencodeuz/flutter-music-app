@@ -20,12 +20,17 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
 
-  audioplayers: ^0.10.0
-  cached_network_image: ^0.6.2
-  dio: ^2.0.14
-  shared_preferences: ^0.5.1+1
-  flutter_local_notifications: ^0.5.2
-  flutter_flipperkit: ^0.0.7
+  audioplayers: ^0.13.1
+  cached_network_image: ^1.0.0
+  dio: ^2.1.0
+  shared_preferences: ^0.5.3+1
+  redux_persist_flutter:
+    path: ../Library/redux_persist/packages/redux_persist_flutter
+  redux_persist: ^0.8.2
+  flutter_local_notifications:
+    path: ../Library/flutter_local_notifications
+#  flutter_flipperkit: ^0.0.9
+  fish_redux: ^0.2.4
   logs:
     git: https://github.com/pq/logs
 
@@ -52,6 +57,7 @@ flutter:
   assets:
   - assets/images/ic_netease_cloud_music.jpg
   - assets/images/pic_default.png
+  - assets/data/
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
