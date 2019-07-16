@@ -14,7 +14,7 @@ Effect<LoginState> buildEffect() {
 }
 
 void _onLoginWithPhone(Action action, Context<LoginState> ctx) async {
-  LoginUser loginUser = await loginWithPhone(action.payload["phone"], action.payload["password"]);
+  LoginUser loginUser = await loginWithPhone(ctx.state.accountEditingController.text, ctx.state.passwordEditingController.text);
   GlobalState state = GlobalStore.store.getState().clone()..currentUser = loginUser;
   ctx.dispatch(Action(GlobalAction.updateState, payload: state));
   GlobalStore.store.dispatch(Action(GlobalAction.updateState, payload: state));

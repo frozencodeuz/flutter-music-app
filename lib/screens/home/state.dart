@@ -4,7 +4,9 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:myapp/global_store/state.dart';
 import 'package:myapp/entity/index.dart';
 
-class HomeState implements GlobalBaseState<HomeState> {
+import 'drawer_component/component.dart';
+
+class HomeState extends GlobalState { // implements GlobalBaseState<HomeState> {
   @override
   HomeState clone() {
     return HomeState()
@@ -18,30 +20,32 @@ class HomeState implements GlobalBaseState<HomeState> {
       ..currentUser = this.currentUser;
   }
 
-  @override
-  Color themeColor;
-
-  @override
-  Playlist currentPlaylist;
-
-  @override
-  int currentPlayingIndex;
-
-  @override
-  List<MusicResource> currentMusicResourceList;
-
-  @override
-  List<Song> currentSongs;
-
-  @override
-  LoginUser currentUser;
+//  @override
+//  Color themeColor;
+//
+//  @override
+//  Playlist currentPlaylist;
+//
+//  @override
+//  int currentPlayingIndex;
+//
+//  @override
+//  List<MusicResource> currentMusicResourceList;
+//
+//  @override
+//  List<Song> currentSongs;
+//
+//  @override
+//  LoginUser currentUser;
 
   List<Playlist> playlistList;
 
   HomeState(
-      {this.themeColor,
-      this.playlistList,
-      this.currentPlaylist});
+      {
+//        this.themeColor,
+        this.playlistList,
+//        this.currentPlaylist
+      });
 
   static HomeState fromJson(dynamic json) => HomeState(
         playlistList: (json['playlistList'] as List).map((v) => Playlist.fromJson(v)).toList(),
@@ -51,6 +55,26 @@ class HomeState implements GlobalBaseState<HomeState> {
         'playlistList':
             this.playlistList.map((playlist) => playlist.toJson()).toList(),
       };
+}
+
+class DrawConnector extends Reselect1<HomeState, UserState, LoginUser> {
+  @override
+  UserState computed(LoginUser sub0) {
+    return UserState()
+      ..loginUser = sub0;
+  }
+
+  @override
+  LoginUser getSub0(HomeState state) {
+    return state.currentUser;
+  }
+
+  @override
+  void set(HomeState state, UserState subState) {
+    // TODO: implement set
+    throw Exception('Unexcepted to set PageState from ReportState');
+  }
+
 }
 
 HomeState initState(Map<String, dynamic> args) {

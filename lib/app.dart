@@ -1,8 +1,44 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action;
+import 'package:redux_persist/redux_persist.dart';
+import 'package:redux_persist_flutter/redux_persist_flutter.dart';
 import 'global_store/state.dart';
 import 'global_store/store.dart';
 import './screens/index.dart';
+
+//final globalPersistor = Persistor<GlobalState>(
+//  debug: true,
+//  storage: FlutterStorage(key: 'GlobalState'),
+//  serializer: JsonSerializer<GlobalState>(GlobalState.fromJson),
+//);
+
+//Middleware<GlobalState> persistMiddleware =
+//    ({Dispatch dispatch, Get<GlobalState> getState}) {
+//  return (Dispatch next) {
+//    return (Action action) {
+//      final state = getState();
+//      globalPersistor.save(state);
+//      next(action);
+//    };
+//  };
+//};
+//
+//Middleware<T> persistMiddleware<T>({
+//  String tag = 'redux',
+//  String Function(T) monitor,
+//}) {
+//  return ({Dispatch dispatch, Get<T> getState}) {
+//    return (Dispatch next) {
+//      return (Action action) {
+//        final T nextState = getState();
+//        if (nextState is GlobalState) {
+//          globalPersistor.save(nextState);
+//        }
+//        next(action);
+//      };
+//    };
+//  };
+//}
 
 final AbstractRoutes routes = PageRoutes(
   pages: <String, Page<Object, dynamic>>{
@@ -42,7 +78,10 @@ final AbstractRoutes routes = PageRoutes(
         safetyAdapter<dynamic>()
       ],
       effectMiddleware: [],
-      middleware: <Middleware<dynamic>>[logMiddleware<dynamic>()],
+      middleware: <Middleware<dynamic>>[
+        logMiddleware<dynamic>(),
+//        persistMiddleware<dynamic>(),
+      ],
     );
 
     // }

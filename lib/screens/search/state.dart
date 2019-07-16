@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:myapp/entity/index.dart';
 import 'package:myapp/global_store/state.dart';
 
-class SearchState extends GlobalBaseState<SearchState> {
+class SearchState extends GlobalState { //  GlobalBaseState<SearchState> {
   List<Song> songs = [];
   List<Artist> artists = [];
   List<Album> albums = [];

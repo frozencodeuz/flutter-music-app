@@ -5,9 +5,6 @@ import 'package:flutter/widgets.dart';
 import 'action.dart';
 import 'state.dart';
 
-final accountEditingController = TextEditingController();
-final passwordEditingController = TextEditingController();
-
 Widget buildView(LoginState state, Dispatch dispatch, ViewService viewService) {
   return Scaffold(
       appBar: AppBar(
@@ -26,7 +23,7 @@ Widget buildView(LoginState state, Dispatch dispatch, ViewService viewService) {
                   textInputAction: TextInputAction.next,
                   autofocus: true,
                   onEditingComplete: () {},
-                  controller: accountEditingController,
+                  controller: state.accountEditingController,
                   decoration: InputDecoration(
                     labelText: "账号",
 //                      hintText: "账号",
@@ -45,7 +42,7 @@ Widget buildView(LoginState state, Dispatch dispatch, ViewService viewService) {
                   textInputAction: TextInputAction.go,
                   autofocus: false,
                   onEditingComplete: () {},
-                  controller: passwordEditingController,
+                  controller: state.passwordEditingController,
                   decoration: InputDecoration(
                     labelText: "密码",
 //                      hintText: "密码",
@@ -65,11 +62,9 @@ Widget buildView(LoginState state, Dispatch dispatch, ViewService viewService) {
                     margin: EdgeInsets.only(top: 16),
                     child: MaterialButton(
                       color: Theme.of(viewService.context).primaryColor,
-                      onPressed: () {
-                        dispatch(LoginActionCreator.onLoginWithPhone(
-                            phone: accountEditingController.text,
-                            password: passwordEditingController.text));
-                      },
+                      onPressed: (state.accountEditingController.text.isNotEmpty && state.passwordEditingController.text.isNotEmpty) ? () {
+                        dispatch(LoginActionCreator.onLoginWithPhone());
+                      } : null,
                       child: Text(
                         '登录',
                         style: TextStyle(color: Colors.white),

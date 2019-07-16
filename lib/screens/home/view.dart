@@ -1,12 +1,10 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:myapp/entity/my_playlist.dart';
-import 'package:myapp/screens/search/page.dart';
 
 import 'package:myapp/widgets/player_bar.dart';
 import 'state.dart';
 import 'view/content.dart';
-import 'view/drawer.dart';
 
 Widget buildView(HomeState state, Dispatch dispatch, ViewService viewService) {
   var currentPlayingSong;
@@ -14,7 +12,7 @@ Widget buildView(HomeState state, Dispatch dispatch, ViewService viewService) {
     currentPlayingSong = state.currentSongs[state.currentPlayingIndex];
   }
   return Scaffold(
-    drawer: HomeDrawer(currentUser: state.currentUser),
+    drawer: viewService.buildComponent('drawer'),
     bottomNavigationBar: PlayerBar(currentPlayingSong),
     appBar: AppBar(
       // Here we take the value from the MyHomePage object that was created by

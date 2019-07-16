@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:flutter/widgets.dart';
 import 'package:myapp/entity/login_user.dart';
 import 'package:myapp/entity/music.dart';
 import 'package:myapp/entity/my_playlist.dart';
@@ -9,7 +10,16 @@ import 'package:myapp/global_store/state.dart';
 class LoginState implements GlobalBaseState<LoginState> {
   @override
   LoginState clone() {
-    return LoginState();
+    return LoginState()
+    ..accountEditingController = accountEditingController
+    ..passwordEditingController = passwordEditingController
+
+    ..themeColor = this.themeColor
+    ..currentPlaylist = this.currentPlaylist
+    ..currentPlayingIndex = this.currentPlayingIndex
+    ..currentSongs = this.currentSongs
+    ..currentMusicResourceList = this.currentMusicResourceList
+    ..currentUser = this.currentUser;
   }
 
   @override
@@ -30,6 +40,11 @@ class LoginState implements GlobalBaseState<LoginState> {
   @override
   LoginUser currentUser;
 
+  TextEditingController accountEditingController;
+  TextEditingController passwordEditingController;
+  String account;
+  String password;
+
   LoginState();
 
   static LoginState fromJson(dynamic json) => LoginState(
@@ -43,5 +58,7 @@ class LoginState implements GlobalBaseState<LoginState> {
 }
 
 LoginState initState(Map<String, dynamic> args) {
-  return LoginState();
+  return LoginState()
+    ..accountEditingController = TextEditingController(text: '')
+    ..passwordEditingController = TextEditingController(text: '');
 }

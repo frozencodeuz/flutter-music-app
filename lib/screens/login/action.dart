@@ -5,7 +5,7 @@ import 'package:flutter/foundation.dart';
 enum LoginAction { loginWithPhone, updateState }
 
 class LoginActionCreator {
-  static Action onLoginWithPhone({@required String phone, @required String password}) {
+  static Action onLoginWithPhone({String phone, String password}) {
     return Action(LoginAction.loginWithPhone, payload: { "phone": phone, "password": password });
   }
 }

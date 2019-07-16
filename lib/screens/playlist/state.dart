@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:myapp/global_store/state.dart';
 import 'package:myapp/entity/index.dart';
 
-class PlaylistState implements GlobalBaseState<PlaylistState> {
+class PlaylistState extends GlobalState { // implements GlobalBaseState<PlaylistState> {
   int playlistId;
 
   PlaylistDetail playlistDetail;
